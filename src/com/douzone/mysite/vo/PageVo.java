@@ -37,8 +37,12 @@ public class PageVo {
 	public int getStartPageNo() {
 		return startPageNo;
 	}
-	public void setStartPageNo(int startPageNo) {
-		this.startPageNo = startPageNo;
+	public void setStartPageNo(int pageNo) {
+		if(pageNo<3)
+			pageNo = 1;
+		else 
+			pageNo = pageNo-2;
+		this.startPageNo = pageNo;
 	}
 	public int getPageNo() {
 		return pageNo;
@@ -49,8 +53,14 @@ public class PageVo {
 	public int getEndPageNo() {
 		return endPageNo;
 	}
-	public void setEndPageNo(int endPageNo) {
-		this.endPageNo = endPageNo;
+	public void setEndPageNo(int pageNo) {
+		if(pageNo+2 == this.pageSize)
+			pageNo = this.pageSize;
+		else if(pageNo < 3)
+			pageNo = 5;
+		else 
+			pageNo = pageNo+2;
+		this.endPageNo = pageNo;
 	}
 	public int getNextPageNo() {
 		return nextPageNo;

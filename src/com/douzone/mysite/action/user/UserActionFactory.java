@@ -30,6 +30,8 @@ public class UserActionFactory extends AbstractActionFactory {
 			action = new IndexAction();
 		}
 		
+		System.out.println(this.getClass().getSimpleName() + ":" + actionName);
+		
 		return action;
 	}
 

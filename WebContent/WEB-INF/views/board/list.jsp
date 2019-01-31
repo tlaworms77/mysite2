@@ -73,7 +73,7 @@
 								</c:otherwise>
 							</c:choose>
 						</li>
-						<c:forEach var="i" begin="${ pageVo.pageNo }" end="${ pageVo.pageNo + 4 }" step="1">
+						<c:forEach var="i" begin="${ pageVo.startPageNo }" end="${ pageVo.endPageNo }" step="1">
 							<c:choose>
 								<c:when test="${ pageVo.pageNo == i }">
 									<li class="selected"><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.pageNo}&kwd=${param.kwd}">${pageVo.pageNo}</a></li>
@@ -87,10 +87,7 @@
 							</c:choose>
 						</c:forEach>
 						<c:choose>
-							<c:when test="${ pageVo.pageNo == 1 }">
-							 	<li><a href="${ pageContext.servletContext.contextPath }/board?page=2&kwd=${param.kwd}">▶</a></li>
-							 </c:when>
-							 <c:when test="${ pageVo.pageSize >= pageVo.nextPageNo} ">
+							<c:when test="${ pageVo.pageNo < pageVo.pageSize }">
 								<li><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.nextPageNo}&kwd=${param.kwd}">▶</a></li>
 							</c:when>
 							<c:otherwise>

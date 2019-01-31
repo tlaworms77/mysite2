@@ -18,7 +18,7 @@
 					<input type="hidden" name="a" value="delete">
 					<input type='hidden' name="no" value="${ param.no }">
 					<label>비밀번호</label>
-					<input type="password" name="password">
+					<input type="password" name="password" style="width: 200px;" placeholder="로그인 시 사용하셨던 비밀번호를 입력해주세요.">
 					<input type="submit" value="확인">
 				</form>
 				<a href="${ pageContext.servletContext.contextPath }/board">방명록 리스트</a>
