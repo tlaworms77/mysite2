@@ -72,9 +72,9 @@ public class BoardListAction implements Action {
 		 */
 
 		String kwd = request.getParameter("kwd");
-
+		
 		if (kwd != null && kwd != "") {
-			List<BoardVo> list = new BoardDao().search(kwd);
+			List<BoardVo> list = new BoardDao().search(kwd, pageVo.getPageNo());
 			request.setAttribute("list", list);
 			WebUtils.forward(request, response, "/WEB-INF/views/board/list.jsp");
 			return;

@@ -251,7 +251,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public List<BoardVo> search(String kwd) {
+	public List<BoardVo> search(String kwd, int pageNo) {
 		List<BoardVo> list = new ArrayList<BoardVo>();
 
 		Connection conn = null;
@@ -260,9 +260,11 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-
+			
+			pageNo = (pageNo-1)*10;
+			
 			// SQL문 실행
-			String sql = "select a.no, a.title, b.name, a.hit, a.write_date from board a, user b where a.user_no = b.no and (a.title like '%"+kwd+"%' or a.contents like '%" + kwd + "%') order by a.g_no desc, a.o_no asc";
+			String sql = "select a.no, a.title, b.name, a.hit, a.write_date from board a, user b where a.user_no = b.no and (a.title like '%"+kwd+"%' or a.contents like '%" + kwd + "%') order by a.g_no desc, a.o_no asc limit " + pageNo + ", 10";
 			
 			// Statement 객체 생성
 			pstmt = conn.prepareStatement(sql);

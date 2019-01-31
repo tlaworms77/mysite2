@@ -69,20 +69,20 @@
 									<a href="${ pageContext.servletContext.contextPath }/board">◀</a>
 								</c:when>
 								<c:otherwise>
-									<a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.prevPageNo}">◀</a>
+									<a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.prevPageNo}&kwd=${param.kwd}">◀</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
 						<c:forEach var="i" begin="${ pageVo.pageNo }" end="${ pageVo.pageNo + 4 }" step="1">
 							<c:choose>
 								<c:when test="${ pageVo.pageNo == i }">
-									<li class="selected"><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.pageNo}">${pageVo.pageNo}</a></li>
+									<li class="selected"><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.pageNo}&kwd=${param.kwd}">${pageVo.pageNo}</a></li>
 								</c:when>
 								<c:when test="${ pageVo.pageSize < i }">
 									<li>${ i }</li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${ pageContext.servletContext.contextPath }/board?page=${i}">${i}</a></li>
+									<li><a href="${ pageContext.servletContext.contextPath }/board?page=${i}&kwd=${param.kwd}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -93,13 +93,13 @@
 						<li>5</li> --%>
 						<c:choose>
 							<c:when test="${ pageVo.pageNo == 1 }">
-							 	<li><a href="${ pageContext.servletContext.contextPath }/board?page=2">▶</a></li>
+							 	<li><a href="${ pageContext.servletContext.contextPath }/board?page=2&kwd=${param.kwd}">▶</a></li>
 							 </c:when>
 							 <c:when test="${ pageVo.pageSize >= pageVo.nextPageNo} ">
-								<li><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.nextPageNo}">▶</a></li>
+								<li><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.nextPageNo}&kwd=${param.kwd}">▶</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.pageNo}">▶</a></li>
+								<li><a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.pageNo}&kwd=${param.kwd}">▶</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
