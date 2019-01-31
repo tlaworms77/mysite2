@@ -35,9 +35,6 @@ public class DeleteAction implements Action {
 			WebUtils.redirect(request, response, request.getContextPath() + "/board");
 			return;
 		} else {
-//			boolean result = new BoardDao().delete(no, userNo, password);
-//			new BoardDao().delete(no);
-//			System.out.println("[" + no + "] 게시글 삭제 성공");
 			
 			List<BoardVo> list = new BoardDao().getDeleteCheckList(no);
 			int parentDepth = list.get(0).getDepth();

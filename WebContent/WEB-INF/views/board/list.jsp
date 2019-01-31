@@ -65,11 +65,11 @@
 					<ul>
 						<li>
 							<c:choose>
-								<c:when test="${ pageVo.pageNo < 1 }">
+								<c:when test="${ pageVo.pageNo == null || pageVo.pageNo < 1 }">
 									<a href="${ pageContext.servletContext.contextPath }/board">◀</a>
 								</c:when>
 								<c:otherwise>
-									<a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.pageNo - 1}">◀</a>
+									<a href="${ pageContext.servletContext.contextPath }/board?page=${pageVo.prevPageNo}">◀</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
