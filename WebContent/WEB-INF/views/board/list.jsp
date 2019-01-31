@@ -86,11 +86,6 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<%-- <li><a href="${ pageContext.servletContext.contextPath }/board">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="${ pageContext.servletContext.contextPath }/board">3</a></li>
-						<li>4</li>
-						<li>5</li> --%>
 						<c:choose>
 							<c:when test="${ pageVo.pageNo == 1 }">
 							 	<li><a href="${ pageContext.servletContext.contextPath }/board?page=2&kwd=${param.kwd}">▶</a></li>

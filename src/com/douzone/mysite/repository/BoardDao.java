@@ -268,14 +268,7 @@ public class BoardDao {
 			
 			// Statement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			
-//			System.out.println("kwd : " + kwd);
-			
-//			kwd = "%" + kwd + "%";
-//			System.out.println("kwd : " + kwd);
-			//pstmt.setString(1, kwd);
-			//pstmt.setString(2, kwd);
-			
+	
 			rs = pstmt.executeQuery( sql );
 
 			// 결과 가져오기(사용하기)
@@ -376,11 +369,6 @@ public class BoardDao {
 
 			String sql = "insert into board values(null, ?, ?, now(), 0, (SELECT c.g_no from board c where c.no = ?), (SELECT ifnull(MAX(b.o_no) + 1, 1) FROM board b where b.no = ?), (SELECT ifnull(MAX(a.depth)+10, 10) FROM board a where a.no = ?), ?)";
 			pstmt = conn.prepareStatement(sql);
-//
-//			pstmt.setString(1, vo.getTitle());
-//			pstmt.setString(2, vo.getContents());
-//			pstmt.setInt(3, vo.getGroupNo());
-//			pstmt.setLong(4, vo.getUserNo().getNo());
 
 			int count = pstmt.executeUpdate();
 			
@@ -574,11 +562,8 @@ public class BoardDao {
 			String sql = "update board e, (select o_no from board where no="+no+")t1 set e.o_no=t1.o_no+1 where no=" + no;
 			pstmt = conn.prepareStatement(sql);
 
-//			int count = pstmt.executeUpdate();
 			pstmt.executeUpdate();
 
-//			result = count == 1;
-			
 		} catch (SQLException e) {
 			System.out.println("error :" + e);
 		} finally {
@@ -608,11 +593,8 @@ public class BoardDao {
 			String sql = "update board set o_no="+orderNo+" where no=" + no;
 			pstmt = conn.prepareStatement(sql);
 
-//			int count = pstmt.executeUpdate();
 			pstmt.executeUpdate();
 
-//			result = count == 1;
-			
 		} catch (SQLException e) {
 			System.out.println("error :" + e);
 		} finally {
