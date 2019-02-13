@@ -22,11 +22,13 @@ public class AjaxCheckEmailAction implements Action {
 		String email = request.getParameter("email");
 		
 		UserDao dao = new UserDao();
-		UserVo vo = null; // dao.checkEmail(email);
+		UserVo vo = dao.get(email); // = null; ( tdd1 )
 		
 		boolean bExist = vo != null;	// vo가 not null -> bExist=true
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("exist", bExist);
+		
+		// 이처럼 통신용어로써 vo 보다는 dto라고 사용해서 보낸다.
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		String jsonString = jsonObject.toString(); // map -> json로 바뀐다.
 		
