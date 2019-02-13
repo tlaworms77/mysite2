@@ -1,0 +1,16 @@
+[{
+	"no":10,
+	"password":"",
+	"joinDate":"",
+	"gender":"male",
+	"name":"둘리",
+	"email":"dooly@gmail.com"
+},
+{
+	"no":20,
+	"password":"",
+	"joinDate":"",
+	"gender":"male",
+	"name":"마이콜",
+	"email":"michol@gmail.com"
+}]
