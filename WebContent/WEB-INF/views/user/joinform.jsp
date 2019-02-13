@@ -27,7 +27,10 @@ $(function(){
 		}
 		
 		//2-2. 이메일 중복체크 유무
-		
+		if($("#img-checkemail").is(":visible") == false){
+			alert("이메일 중복 체크를 해야합니다.");
+			return false;
+		}
 		
 		//3. 비밀번호 확인
 		if($("input[type='password']").val() == ""){
@@ -42,7 +45,12 @@ $(function(){
 			return false;
 		}
 		
-		return false;
+		return true;
+	});
+	
+	$("#email").change(function(){
+		$("#btn-checkemail").show();
+		$("#img-checkemail").hide();
 	});
 	
 	$("#btn-checkemail").click(function(){
@@ -52,7 +60,7 @@ $(function(){
 		}
 		
 		$.ajax({
-			url: "/mysite2/api/user",
+			url: "${pageContext.servletContext.contextPath }/api/user",
 			type: "post",
 			dataType: "json",
 			data: "a=ajax-checkemail&email=" + email,
@@ -88,7 +96,7 @@ $(function(){
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
-					<img id="img-checkemail" style="width:20px; display:none" src="${pageContext.servletContext.contextPath }/assets/images/check.png"/>
+					<img id="img-checkemail" align="absmiddle" style="width:20px; display:none" src="${pageContext.servletContext.contextPath }/assets/images/check.png"/>
 					<input id="btn-checkemail" type="button" value="이메일확인">
 					
 					<label class="block-label">패스워드</label>
