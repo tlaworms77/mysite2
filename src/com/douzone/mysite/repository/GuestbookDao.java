@@ -50,11 +50,11 @@ public class GuestbookDao {
 		return count;		
 	}
 	
-	public boolean insert(GuestbookVo vo) {
-		boolean result = false;
+	public long insert(GuestbookVo vo) {
+		long count = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
+		ResultSet rs = null;
 		try {
 			conn = getConnection();
 
@@ -68,15 +68,26 @@ public class GuestbookDao {
 			pstmt.setString(2, vo.getPassword());
 			pstmt.setString(3, vo.getMessage());
 
-			int count = pstmt.executeUpdate();
+			count = pstmt.executeUpdate();
 			
-			result = count == 1;
-
+			sql = "select last_insert_id()";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getLong(1);
+			}
+			
 		} catch (SQLException e) {
 			System.out.println("error :" + e);
 		} finally {
 			// 자원 정리
 			try {
+				if(rs != null) {
+					rs.close();
+				}
 				if (pstmt != null) {
 					pstmt.close();
 				}
@@ -88,7 +99,7 @@ public class GuestbookDao {
 			}
 		}
 
-		return result;
+		return count;
 	}
 
 	public List<GuestbookVo> getList() {
@@ -165,5 +176,125 @@ public class GuestbookDao {
 		} 
 		
 		return conn;
+	}
+
+	public List<GuestbookVo> getList(int page) {
+		List<GuestbookVo> list = new ArrayList<GuestbookVo>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			// SQL문 준비
+			String sql =
+				"   select no," + 
+				"          name," + 
+				"	       message," + 
+				"     	   date_format(reg_date, '%Y-%m-%d %h:%i:%s')" + 
+				"     from guestbook" + 
+				" order by reg_date desc " +
+				"    limit ?, 5";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1,  (page-1)*5);
+			
+			rs = pstmt.executeQuery();
+			
+			// 결과 가져오기(사용하기)
+			while (rs.next()) {
+				Long no = rs.getLong(1);
+				String name = rs.getString(2);
+				String message = rs.getString(3);
+				String regDate = rs.getString(4);
+
+				GuestbookVo vo = new GuestbookVo();
+				vo.setNo(no);
+				vo.setName(name);
+				vo.setMessage( message );
+				vo.setRegDate( regDate );
+
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("error :" + e);
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
+
+	public GuestbookVo get(long no) {
+		GuestbookVo vo = new GuestbookVo();
+
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+
+			// Statement 객체 생성
+			stmt = conn.createStatement();
+
+			// SQL문 실행
+			String sql =
+				"   select no," + 
+				"          name," + 
+				"	       message," + 
+				"     	   date_format(reg_date, '%Y-%m-%d %h:%i:%s')" + 
+				"     from guestbook" +
+				"    where no=" + no +
+				" order by reg_date desc";
+			rs = stmt.executeQuery( sql );
+
+			// 결과 가져오기(사용하기)
+			while (rs.next()) {
+				Long no1 = rs.getLong(1);
+				String name = rs.getString(2);
+				String message = rs.getString(3);
+				String regDate = rs.getString(4);
+
+				vo.setNo(no1);
+				vo.setName(name);
+				vo.setMessage( message );
+				vo.setRegDate( regDate );
+			}
+		} catch (SQLException e) {
+			System.out.println("error :" + e);
+		} finally {
+			// 자원 정리
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return vo;
 	}	
 }

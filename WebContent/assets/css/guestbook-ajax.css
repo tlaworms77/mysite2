@@ -9,7 +9,7 @@
 	background-size: 35px;
 	padding-left:40px;
 }
-#guestbook form { width:100% }
+#btn-next, #guestbook form { width:100% }
 #guestbook form input[type="text"],
 #guestbook form input[type="password"],
 #guestbook form textarea {
@@ -25,7 +25,7 @@
 	height: 80px;
 	font-family: "맑은 고딕", 돋움, 굴림;
 }
-#guestbook form input[type="submit"] {
+#btn-next, #guestbook form input[type="submit"] {
 	display: block;
 	outline: none;	
 	border:1px solid #A9A9A9;
@@ -36,12 +36,12 @@
 	color: #846B5C;
 	cursor:pointer;
 }
-#guestbook form input[type="submit"]:hover {
+#btn-next ,#guestbook form input[type="submit"]:hover {
 	background-color:#65B791;
 	color:#fff;
 }
 
-#guestbook ul		{
+#btn-next, #guestbook ul		{
 	width:540px;
 	margin-top:20px;
 	border-top:1px solid #A9A9A9;

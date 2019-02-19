@@ -1,41 +1,43 @@
 package com.douzone.mysite.action.guestbook;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.douzone.mvc.action.Action;
-import com.douzone.mvc.util.WebUtils;
 import com.douzone.mysite.repository.GuestbookDao;
 import com.douzone.mysite.vo.GuestbookVo;
 
-public class InsertAction implements Action {
+import net.sf.json.JSONObject;
+
+public class AjaxInsertAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String name = request.getParameter("name");
-		String password = request.getParameter("pass");
 		String message = request.getParameter("content");
+		String password = request.getParameter("password");
 		
 		GuestbookVo vo = new GuestbookVo();
-		
 		vo.setName(name);
-		vo.setPassword(password);
 		vo.setMessage(message);
+		vo.setPassword(password);
 		
-		boolean result = 1 == new GuestbookDao().insert(vo);
-		System.out.println("1111");
-		if(result) {
-			System.out.println("방명록 추가 성공");
-			WebUtils.redirect(request, response, request.getContextPath() + "/guestbook");
-		} else {
-			System.out.println("방명록 추가 실패");
-		}
+		GuestbookDao dao = new GuestbookDao();
+		long no = dao.insert(vo);
+		GuestbookVo newVo = dao.get(no);
 		
-		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", "success");
+		map.put("data", newVo);
+
+		response.setContentType("application/json; charset=utf-8");
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().print(jsonObject.toString());
 		
 	}
 
