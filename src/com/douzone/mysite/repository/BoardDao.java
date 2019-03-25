@@ -406,7 +406,7 @@ public class BoardDao {
 
 			// Statement 객체 생성
 			stmt = conn.createStatement();
-
+			System.out.println("no !!! : " + no);
 			// SQL문 실행
 			String sql = "select "
 								+ "a.*, "
@@ -453,6 +453,8 @@ public class BoardDao {
 				uVo.setNo(userNo);
 				uVo.setName(name);
 				vo.setUserNo(uVo);
+				
+				System.out.println(vo);
 				
 				list.add(vo);
 			}
